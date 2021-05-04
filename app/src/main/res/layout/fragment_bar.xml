@@ -7,7 +7,7 @@
     tools:context=".BarFragment">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/image_take_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"

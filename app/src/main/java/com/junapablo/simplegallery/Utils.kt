@@ -3,7 +3,9 @@ package com.junapablo.simplegallery
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import java.io.File
+import java.util.*
 
 object Utils {
     fun loadBitmapFromAssets(context: Context, assetName: String): Bitmap {
@@ -12,6 +14,13 @@ object Utils {
 
     fun checkIfAssetExists(context: Context, assetName: String) : Boolean {
         return File(context.filesDir, assetName).isFile
+    }
+
+    fun getAssetJpgFile(context: Context): File {
+        val outFile = File(context.filesDir, UUID.randomUUID().toString() + ".jpg")
+        outFile.parentFile.mkdirs()
+        outFile.createNewFile()
+        return outFile
     }
 
     fun saveBitmapToAssets(context: Context, bitmap: Bitmap, assetName: String) {
@@ -42,5 +51,10 @@ object Utils {
         } else {
             image
         }
+    }
+
+    fun Bitmap.rotate(degrees: Float): Bitmap {
+        val matrix = Matrix().apply { postRotate(degrees) }
+        return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
     }
 }

@@ -80,6 +80,17 @@ class GalleryItemFragment : Fragment() {
         }
     }
 
+    val addNewEntryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val newEntry = result.data?.extras?.get(EXTRA_GALLERY_NEW_ENTRY)
+            if (newEntry !is GalleryEntry)
+                return@registerForActivityResult
+
+            addEntry(newEntry)
+        }
+    }
+
+
     companion object {
         const val EXTRA_GALLERY_OLD_ENTRY = "extra_gallery_old_entry"
         const val EXTRA_GALLERY_NEW_ENTRY = "extra_gallery_new_entry"

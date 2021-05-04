@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         val fragmentGallery = supportFragmentManager.findFragmentById(R.id.fragment_gallery) as GalleryItemFragment
+        val fragmentBar = supportFragmentManager.findFragmentById(R.id.fragment_bar) as BarFragment
+
+        fragmentBar.newEntryLauncher = fragmentGallery.addNewEntryResult
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             fragmentGallery.setColumns(4)

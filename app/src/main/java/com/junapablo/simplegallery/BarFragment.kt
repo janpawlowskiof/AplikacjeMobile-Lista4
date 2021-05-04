@@ -1,37 +1,31 @@
 package com.junapablo.simplegallery
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-private const val ARG_NAME = "arg_name"
+import android.widget.Button
+import android.widget.ImageButton
+import androidx.activity.result.ActivityResultLauncher
 
 
 class BarFragment : Fragment() {
-    private var test_name: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            test_name = it.getString(ARG_NAME)
-        }
-    }
+    lateinit var newEntryLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bar, container, false)
-    }
+        val result = inflater.inflate(R.layout.fragment_bar, container, false)
 
-    companion object {
-        fun newInstance(name: String) =
-            BarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_NAME, name)
-                }
-            }
+        result.findViewById<ImageButton>(R.id.image_take_photo).setOnClickListener {
+            newEntryLauncher.launch(Intent(requireContext(), CameraPreview::class.java))
+        }
+
+        return result
     }
 }
